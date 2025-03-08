@@ -1,6 +1,5 @@
-use iced::widget::container::Style;
-use iced::widget::{Column, Container, Image, button, column, container, row, text};
-use iced::{Alignment, Background, Color, Element, Theme};
+use iced::widget::{Column, Container, Image, column, container, row, scrollable, text};
+use iced::{Alignment, Element, Theme};
 
 #[derive(Debug, PartialEq, Eq, Clone, Default)]
 pub struct MainUi {
@@ -22,8 +21,12 @@ pub enum Message {
 
 impl MainUi {
     const FONT: &'static [u8] = include_bytes!("/usr/share/fonts/TTF/ZedMonoNerdFont-Regular.ttf");
-    pub fn view(&self) -> Column<Message> {
-        column![self.header(), self.body()]
+    pub fn view(&self) -> Element<Message> {
+        let post_column = scrollable(column(
+            (0..5).map(|_| container(self.body()).padding(10).into()),
+        ));
+
+        column![self.header(), post_column].into()
     }
 
     pub fn update(&mut self, message: Message) {
@@ -48,7 +51,7 @@ impl MainUi {
             .padding(10)
     }
 
-    pub fn body(&self) -> Element<Message> {
+    pub fn body(&self) -> Column<Message> {
         let image = Image::new("/home/walker/github/dotfiles/Wallpapers/buddha.jpg")
             .width(300)
             .height(150)
@@ -61,7 +64,7 @@ impl MainUi {
             .padding(5)
             .style(container::rounded_box);
 
-        column![post].into()
+        column![post]
     }
 }
 
