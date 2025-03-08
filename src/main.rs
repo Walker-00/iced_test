@@ -1,5 +1,5 @@
 use iced::widget::{Column, Container, Image, button, column, container, row, text};
-use iced::{Alignment, Element, Theme};
+use iced::{Alignment, Theme};
 
 #[derive(Debug, PartialEq, Eq, Clone, Default)]
 pub struct MainUi {
@@ -22,14 +22,7 @@ pub enum Message {
 impl MainUi {
     const FONT: &'static [u8] = include_bytes!("/usr/share/fonts/TTF/ZedMonoNerdFont-Regular.ttf");
     pub fn view(&self) -> Column<Message> {
-        column![
-            Image::new("/home/walker/github/dotfiles/Wallpapers/buddha.jpg")
-                .width(500)
-                .height(300),
-            button("+").on_press(Message::Inc),
-            text(self.value).size(50),
-            button("-").on_press(Message::Dec)
-        ]
+        column![self.header(), self.body()]
     }
 
     pub fn update(&mut self, message: Message) {
@@ -52,6 +45,17 @@ impl MainUi {
             .align_x(Alignment::Center)
             .width(iced::Length::Fill)
             .padding(10)
+    }
+
+    pub fn body(&self) -> Column<Message> {
+        column![
+            Image::new("/home/walker/github/dotfiles/Wallpapers/buddha.jpg")
+                .width(500)
+                .height(300),
+            button("+").on_press(Message::Inc),
+            text(self.value).size(50),
+            button("-").on_press(Message::Dec)
+        ]
     }
 }
 
