@@ -1,4 +1,4 @@
-use iced::widget::{Column, Container, Image, Row, column, container, row, scrollable, text};
+use iced::widget::{Column, Container, Image, column, container, row, scrollable, text};
 use iced::{Alignment, Element, Length, Theme};
 
 #[derive(Debug, PartialEq, Eq, Clone, Default)]
@@ -23,26 +23,28 @@ impl MainUi {
     const FONT: &'static [u8] = include_bytes!("/usr/share/fonts/TTF/ZedMonoNerdFont-Regular.ttf");
 
     pub fn view(&self) -> Element<Message> {
-        let posts: Vec<u8> = (0..30).collect();
-        let post_per_row: Vec<Row<Message>> =
-            posts.chunks(3).map(|v| row![self.body(&v[0])]).collect();
-        let mut tp = 0;
+        let posts: Vec<u8> = (0..31).collect();
+        let post_per_row = posts.chunks(3);
         let post_column = scrollable(
-            column((0..(posts.len() - tp)).map(|i| {
-                row((0..3).map(|_| {
-                    let body = self.body(&posts[tp]).into();
-                    if tp < posts.len() - 1 {
-                        tp += 1;
-                    }
-                    body
-                }))
-                .into()
-            })), // row((0..3).map(|_| {
-                 //     column(posts.iter().map(|i| self.body(i).into()))
-                 //         .width(Length::Fill)
-                 //         .into()
-                 // }))
-                 // .spacing(10),
+            column(
+                post_per_row.map(|v| row(v.iter().map(|i| self.body(i).padding(5).into())).into()),
+            ), // column((0..(posts.len() / 3)).map(|i| {
+               //     println!("c: {i}");
+               //     println!("tp {tp}");
+               //     row((0..3).map(|_| {
+               //         let body = self.body(&posts[tp]).into();
+               //         if tp < posts.len() - 1 {
+               //             tp += 1;
+               //         }
+               //         body
+               //     }))
+               //     .into()
+               // })), // row((0..3).map(|_| {
+               //     column(posts.iter().map(|i| self.body(i).into()))
+               //         .width(Length::Fill)
+               //         .into()
+               // }))
+               // .spacing(10),
         )
         .width(Length::Fill)
         .height(Length::Fill);
