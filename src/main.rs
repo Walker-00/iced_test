@@ -1,5 +1,5 @@
-use iced::Alignment;
 use iced::widget::{Column, button, column, container, row, text};
+use iced::{Alignment, Theme};
 
 #[derive(Debug, PartialEq, Eq, Clone, Default)]
 pub struct MainUi {
@@ -20,8 +20,7 @@ pub enum Message {
 }
 
 impl MainUi {
-    const FONT: &'static [u8] =
-        include_bytes!("/usr/share/fonts/TTF/CaskaydiaCoveNerdFontMono-Regular.ttf");
+    const FONT: &'static [u8] = include_bytes!("/usr/share/fonts/TTF/ZedMonoNerdFont-Regular.ttf");
     pub fn view(&self) -> Column<Message> {
         column![
             container(row![text("Simple Counter App").size(30)])
@@ -44,10 +43,15 @@ impl MainUi {
             }
         }
     }
+
+    pub fn theme(&self) -> Theme {
+        Theme::TokyoNight
+    }
 }
 
 fn main() -> iced::Result {
     iced::application("Test", MainUi::update, MainUi::view)
         .font(MainUi::FONT)
+        .theme(MainUi::theme)
         .run()
 }
