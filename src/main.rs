@@ -50,8 +50,9 @@ impl MainUi {
     pub fn body(&self) -> Column<Message> {
         column![
             Image::new("/home/walker/github/dotfiles/Wallpapers/buddha.jpg")
-                .width(500)
-                .height(300),
+                .width(300)
+                .height(150)
+                .content_fit(iced::ContentFit::Fill),
             button("+").on_press(Message::Inc),
             text(self.value).size(50),
             button("-").on_press(Message::Dec)
