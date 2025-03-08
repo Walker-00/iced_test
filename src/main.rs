@@ -1,5 +1,7 @@
-use iced::widget::{Column, Container, Image, column, container, row, scrollable, text};
-use iced::{Alignment, Element, Theme};
+use std::ops::Deref;
+
+use iced::widget::{Column, Container, Image, Row, column, container, row, scrollable, text};
+use iced::{Alignment, Element, Length, Theme};
 
 #[derive(Debug, PartialEq, Eq, Clone, Default)]
 pub struct MainUi {
@@ -21,10 +23,21 @@ pub enum Message {
 
 impl MainUi {
     const FONT: &'static [u8] = include_bytes!("/usr/share/fonts/TTF/ZedMonoNerdFont-Regular.ttf");
+
     pub fn view(&self) -> Element<Message> {
-        let post_column = scrollable(column(
-            (0..5).map(|_| container(self.body()).padding(10).into()),
-        ));
+        let posts: Vec<Element<Message>> = (0..30)
+            .map(|_| container(self.body()).padding(5).into())
+            .collect();
+        let post_column = scrollable(
+            row((0..3).map(|_| {
+                column(posts.iter().enumerate().map(|(i, _)| posts[i]))
+                    .width(Length::Fill)
+                    .into()
+            }))
+            .spacing(10),
+        )
+        .width(Length::Fill)
+        .height(Length::Fill);
 
         column![self.header(), post_column].into()
     }
