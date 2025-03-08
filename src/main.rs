@@ -1,4 +1,4 @@
-use iced::widget::{Column, button, column, container, row, text};
+use iced::widget::{Column, Image, button, column, container, row, text};
 use iced::{Alignment, Theme};
 
 #[derive(Debug, PartialEq, Eq, Clone, Default)]
@@ -27,6 +27,9 @@ impl MainUi {
                 .align_x(Alignment::Center)
                 .width(iced::Length::Fill)
                 .padding(10),
+            Image::new("/home/walker/github/dotfiles/Wallpapers/buddha.jpg")
+                .width(50)
+                .height(50),
             button("+").on_press(Message::Inc),
             text(self.value).size(50),
             button("-").on_press(Message::Dec)
