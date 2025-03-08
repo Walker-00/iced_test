@@ -1,5 +1,6 @@
+use iced::widget::container::Style;
 use iced::widget::{Column, Container, Image, button, column, container, row, text};
-use iced::{Alignment, Color, Theme};
+use iced::{Alignment, Background, Color, Element, Theme};
 
 #[derive(Debug, PartialEq, Eq, Clone, Default)]
 pub struct MainUi {
@@ -53,13 +54,12 @@ impl MainUi {
             .height(150)
             .content_fit(iced::ContentFit::Fill);
 
-        let text_content = text("Hello World!").size(20).color(Color::BLACK);
+        let text_content = text("Hello World!").size(20);
 
         let post = container(column![image, text_content].spacing(10).padding(10))
             .width(320)
-            .padding(10)
-            .style(iced::theme::Container::Box) // Simple built-in style
-            .background(Color::from_rgb8(240, 240, 240)); // Light gray background
+            .padding(5)
+            .style(container::rounded_box);
 
         column![post].into()
     }
