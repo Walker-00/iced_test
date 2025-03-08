@@ -1,5 +1,5 @@
 use iced::widget::{Column, Container, Image, button, column, container, row, text};
-use iced::{Alignment, Theme};
+use iced::{Alignment, Color, Theme};
 
 #[derive(Debug, PartialEq, Eq, Clone, Default)]
 pub struct MainUi {
@@ -47,16 +47,21 @@ impl MainUi {
             .padding(10)
     }
 
-    pub fn body(&self) -> Column<Message> {
-        column![
-            Image::new("/home/walker/github/dotfiles/Wallpapers/buddha.jpg")
-                .width(300)
-                .height(150)
-                .content_fit(iced::ContentFit::Fill),
-            button("+").on_press(Message::Inc),
-            text(self.value).size(50),
-            button("-").on_press(Message::Dec)
-        ]
+    pub fn body(&self) -> Element<Message> {
+        let image = Image::new("/home/walker/github/dotfiles/Wallpapers/buddha.jpg")
+            .width(300)
+            .height(150)
+            .content_fit(iced::ContentFit::Fill);
+
+        let text_content = text("Hello World!").size(20).color(Color::BLACK);
+
+        let post = container(column![image, text_content].spacing(10).padding(10))
+            .width(320)
+            .padding(10)
+            .style(iced::theme::Container::Box) // Simple built-in style
+            .background(Color::from_rgb8(240, 240, 240)); // Light gray background
+
+        column![post].into()
     }
 }
 
