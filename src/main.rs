@@ -1,5 +1,5 @@
-use iced::widget::{Column, Image, button, column, container, row, text};
-use iced::{Alignment, Theme};
+use iced::widget::{Column, Container, Image, button, column, container, row, text};
+use iced::{Alignment, Element, Theme};
 
 #[derive(Debug, PartialEq, Eq, Clone, Default)]
 pub struct MainUi {
@@ -23,13 +23,9 @@ impl MainUi {
     const FONT: &'static [u8] = include_bytes!("/usr/share/fonts/TTF/ZedMonoNerdFont-Regular.ttf");
     pub fn view(&self) -> Column<Message> {
         column![
-            container(row![text("Simple Counter App").size(30)])
-                .align_x(Alignment::Center)
-                .width(iced::Length::Fill)
-                .padding(10),
             Image::new("/home/walker/github/dotfiles/Wallpapers/buddha.jpg")
-                .width(50)
-                .height(50),
+                .width(500)
+                .height(300),
             button("+").on_press(Message::Inc),
             text(self.value).size(50),
             button("-").on_press(Message::Dec)
@@ -49,6 +45,13 @@ impl MainUi {
 
     pub fn theme(&self) -> Theme {
         Theme::TokyoNight
+    }
+
+    pub fn header(&self) -> Container<Message> {
+        container(row![text("Simple Counter App").size(30)])
+            .align_x(Alignment::Center)
+            .width(iced::Length::Fill)
+            .padding(10)
     }
 }
 
