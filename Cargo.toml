@@ -7,3 +7,4 @@ edition = "2024"
 iced = { version = "0.13.1", features = ["image"] }
 iced_font_awesome = "0.2.1"
 iced_fonts = { version = "0.2.1", features = ["nerd"] }
+nerd_font = { version = "0.2.8", features = ["iced"] }

@@ -1,6 +1,9 @@
 use iced::widget::{Column, Image, MouseArea, Text, column, container, row, scrollable, text};
 use iced::{Alignment, Element, Font, Length, Theme};
-use iced_fonts::NERD_FONT;
+use iced_font_awesome::{fa_icon, fa_icon_brands, fa_icon_solid};
+use iced_fonts::{NERD_FONT, Nerd};
+use nerd_font::categories::{Dev, Linux};
+use nerd_font::{IcedExt, NerdFont};
 
 pub const NFONT: Font = Font {
     family: iced::font::Family::Name("Hack"),
@@ -68,7 +71,7 @@ impl MainUi {
 
     pub fn header(&self) -> Element<Message> {
         row![
-            container(Text::new("🫠").font(NFONT))
+            container(Dev::Android.into_text(20))
                 .align_y(Alignment::Center)
                 .padding(10),
             container(text("Simple Counter App").font(NFONT).size(30))
@@ -99,7 +102,7 @@ impl MainUi {
 
 fn main() -> iced::Result {
     iced::application("Test", MainUi::update, MainUi::view)
-        .font(MainUi::FONT)
+        .font(NerdFont::FONT_BYTES)
         .theme(MainUi::theme)
         .run()
 }
