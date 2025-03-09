@@ -1,5 +1,5 @@
 use iced::widget::{Column, Container, Image, MouseArea, column, container, row, scrollable, text};
-use iced::{Alignment, Element, Length, Theme};
+use iced::{Alignment, Element, Font, Length, Settings, Theme, window};
 
 #[derive(Debug, PartialEq, Eq, Clone, Default)]
 pub struct MainUi {
@@ -49,7 +49,7 @@ impl MainUi {
                 self.value -= 1;
             }
             Message::Pressed(u) => {
-                println!("{u}");
+                // println!("{u}");
             }
         }
     }
@@ -58,11 +58,18 @@ impl MainUi {
         Theme::TokyoNight
     }
 
-    pub fn header(&self) -> Container<Message> {
-        container(row![text("Simple Counter App").size(30)])
-            .align_x(Alignment::Center)
-            .width(iced::Length::Fill)
-            .padding(10)
+    pub fn header(&self) -> Element<Message> {
+        row![
+            container(text("👁️").font(Font::with_name(name)).size(20))
+                .align_y(Alignment::Center)
+                .padding(10),
+            container(text("Simple Counter App").size(30))
+                .align_y(Alignment::Center)
+                .align_x(Alignment::Center)
+                .width(iced::Length::Fill)
+                .padding(10)
+        ]
+        .into()
     }
 
     pub fn body(&self, texts: &u8) -> Column<Message> {
