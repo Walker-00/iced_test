@@ -66,12 +66,12 @@ impl MainUi {
     }
 
     pub fn theme(&self) -> Theme {
-        Theme::TokyoNight
+        Theme::TokyoNightStorm
     }
 
     pub fn header(&self) -> Element<Message> {
         row![
-            container(Dev::Android.into_text(20))
+            container(text(Dev::Android.to_string()))
                 .align_y(Alignment::Center)
                 .padding(10),
             container(text("Simple Counter App").font(NFONT).size(30))
