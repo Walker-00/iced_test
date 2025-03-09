@@ -1,5 +1,5 @@
-use iced::widget::{Column, Container, Image, MouseArea, column, container, row, scrollable, text};
-use iced::{Alignment, Element, Font, Length, Settings, Theme, window};
+use iced::widget::{Column, Image, MouseArea, column, container, row, scrollable, text};
+use iced::{Alignment, Element, Font, Length, Theme};
 
 #[derive(Debug, PartialEq, Eq, Clone, Default)]
 pub struct MainUi {
