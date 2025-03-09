@@ -1,4 +1,4 @@
-use iced::widget::{Column, Container, Image, column, container, row, scrollable, text};
+use iced::widget::{Column, Container, Image, MouseArea, column, container, row, scrollable, text};
 use iced::{Alignment, Element, Length, Theme};
 
 #[derive(Debug, PartialEq, Eq, Clone, Default)]
@@ -17,6 +17,7 @@ pub enum Page {
 pub enum Message {
     Inc,
     Dec,
+    Pressed(u8),
 }
 
 impl MainUi {
@@ -25,12 +26,16 @@ impl MainUi {
     pub fn view(&self) -> Element<Message> {
         let posts: Vec<u8> = (0..31).collect();
         let post_per_row = posts.chunks(3);
-        let post_column =
-            scrollable(column(post_per_row.map(|v| {
-                row(v.iter().map(|i| self.body(i).padding(5).into())).into()
-            })))
-            .width(Length::Fill)
-            .height(Length::Fill);
+        let post_column = scrollable(column(post_per_row.map(|v| {
+            row(v.iter().map(|i| {
+                MouseArea::new(self.body(i).padding(5))
+                    .on_press(Message::Pressed(*i))
+                    .into()
+            }))
+            .into()
+        })))
+        .width(Length::Fill)
+        .height(Length::Fill);
 
         column![self.header(), post_column].into()
     }
@@ -42,6 +47,9 @@ impl MainUi {
             }
             Message::Dec => {
                 self.value -= 1;
+            }
+            Message::Pressed(u) => {
+                println!("{u}");
             }
         }
     }
