@@ -1,5 +1,13 @@
-use iced::widget::{Column, Image, MouseArea, column, container, row, scrollable, text};
+use iced::widget::{Column, Image, MouseArea, Text, column, container, row, scrollable, text};
 use iced::{Alignment, Element, Font, Length, Theme};
+use iced_fonts::NERD_FONT;
+
+pub const NFONT: Font = Font {
+    family: iced::font::Family::Name("Hack"),
+    weight: iced::font::Weight::Normal,
+    stretch: iced::font::Stretch::Normal,
+    style: iced::font::Style::Normal,
+};
 
 #[derive(Debug, PartialEq, Eq, Clone, Default)]
 pub struct MainUi {
@@ -60,10 +68,10 @@ impl MainUi {
 
     pub fn header(&self) -> Element<Message> {
         row![
-            container(text("👁️").font(Font::with_name(name)).size(20))
+            container(Text::new("🫠").font(NFONT))
                 .align_y(Alignment::Center)
                 .padding(10),
-            container(text("Simple Counter App").size(30))
+            container(text("Simple Counter App").font(NFONT).size(30))
                 .align_y(Alignment::Center)
                 .align_x(Alignment::Center)
                 .width(iced::Length::Fill)
